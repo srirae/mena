@@ -1,7 +1,9 @@
+/* 1. ALL @import statements MUST go at the absolute top of the file */
 @import "tailwindcss";
 @import "shadcn/tailwind.css";
-/* @import "tw-animate-css"; */
-/* @import "shadcn/tailwind.css"; */
+@import "@xyflow/react/dist/style.css" layer(base);
+
+/* 2. Custom Tailwind v4 Theme Configurations */
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -116,17 +118,20 @@
     --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* 3. Global CSS Layer Overrides */
 @layer base {
-  * {
+  /* Exclude elements inside .react-flow from structural global overrides */
+  *:not(.react-flow *) {
     @apply border-border outline-ring/50;
-    }
+  }
   body {
     @apply bg-background text-foreground;
-    }
+  }
   html {
     @apply font-sans;
-    }
+  }
 }
-@layer base {
-  @import "@xyflow/react/dist/style.css";
+
+.react-flow__pane {
+  position: fixed !important;
 }
